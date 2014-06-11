@@ -94,9 +94,6 @@ VALUE get_fun(VALUE self, VALUE name){
 //TODO - This function does not appear to be working correctly
 void r_finalize(void)
 {
-  unsigned char buf[1024];
-  char * tmpdir;
-  
   R_dot_Last();           
   R_gc();  /* Remove any remaining R objects from memory */
 }
