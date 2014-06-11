@@ -317,10 +317,9 @@ int
 to_ruby_vector(SEXP robj, VALUE *obj, int mode)
 {
   VALUE it, tmp;
-  VALUE params[2];
   SEXP names, dim;
   int len, *integers, i, type;
-  char *strings, *thislevel;
+  const char *strings, *thislevel;
   double *reals;
   Rcomplex *complexes;
 
@@ -599,7 +598,7 @@ VALUE to_ruby_hash(VALUE obj, SEXP names)
 {
   int len, i;
   VALUE it, hash;
-  char *name;
+  const char *name;
 
   if ((len = RARRAY_LEN(obj)) < 0)
     return Qnil;

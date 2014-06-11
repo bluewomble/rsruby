@@ -136,7 +136,7 @@ SEXP get_fun_from_name(char *ident) {
 }
 
 /* Obtain the text of the last R error message */
-char *get_last_error_msg() {
+const char *get_last_error_msg() {
   SEXP msg;
 
   msg = do_eval_fun("geterrmessage");
