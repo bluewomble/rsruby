@@ -131,9 +131,10 @@ void init_R(int argc, char **argv){
 
   char *defaultArgv[] = {"rsruby","-q","--vanilla"};
 
-  if (RSRUBY_R_HOME) {
-    setenv("R_HOME", RSRUBY_R_HOME, 0);
-  }
+#ifdef RSRUBY_R_HOME
+  setenv("R_HOME", RSRUBY_R_HOME, 0);
+#endif
+
   // Rf_initEmbeddedR(sizeof(defaultArgv) / sizeof(defaultArgv[0]), defaultArgv);
   Rf_initialize_R(sizeof(defaultArgv) / sizeof(defaultArgv[0]), defaultArgv);
   R_Interactive = TRUE; 
