@@ -37,4 +37,4 @@ SEXP get_fun_from_name(char *);
 /* Interrupt the R interpreter */
 void interrupt_R(int);
 
-char *get_last_error_msg(void);
+const char *get_last_error_msg(void);

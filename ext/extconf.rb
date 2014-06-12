@@ -18,7 +18,7 @@ unless have_library("R")
   exit 1
 end
 
-some_include_paths = some_paths.map{|dir| File.join(dir, 'include') } + %w[/usr/include/R]
+some_include_paths = some_paths.map{|dir| File.join(dir, 'include') } + %w[/usr/include/R] + %w[/usr/share/R/include]
 find_header('R.h', nil, *some_include_paths)
 
 unless have_header("R.h")
@@ -26,11 +26,16 @@ unless have_header("R.h")
   exit 1
 end
 
+def r_home
+  @r_home ||=
+    $configure_args['--with-R-dir'] ||
+    %x(R RHOME 2>/dev/null).gsub(/[\r\n]/,"")
+end
+
 File.open("config.h", "w") do |f|
   f.puts("#ifndef R_CONFIG_H")
   f.puts("#define R_CONFIG_H")
-  r_home = $configure_args.has_key?('--with-R-dir') ? $configure_args['--with-R-dir'].inspect : 'NULL'
-  f.puts("#define RSRUBY_R_HOME #{r_home}")
+  f.puts("#define RSRUBY_R_HOME \"#{r_home}\"") if Dir.exist?(r_home)
   f.puts("#endif")
 end
 $extconf_h = 'config.h'
